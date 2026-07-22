@@ -35,6 +35,7 @@ pipeline {
                 // Tunggu backend siap menerima koneksi (~10 detik)
                 sleep(time: 10, unit: 'SECONDS')
                 bat 'docker exec cinema-backend node seed/seed.js'
+                bat 'docker exec cinema-backend node seed/seedAdmin.js'
             }
         }
 
