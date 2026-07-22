@@ -10,7 +10,7 @@ pipeline {
             steps {
                 // Clone repo private menggunakan credential github-pat (username/password)
                 git branch: 'Jenkis',
-                    url: 'https://github.com/RefaMuhammad/cinema-booking.git',
+                    url: 'https://github.com/riakrst/cinema-booking-ria.git',
                     credentialsId: 'github-pat'
             }
         }
@@ -18,7 +18,7 @@ pipeline {
         stage('Build Images') {
             steps {
                 echo 'Building Docker images...'
-                bat 'docker compose build --no-cache'
+                sh 'docker compose build --no-cache'
             }
         }
 
@@ -26,15 +26,15 @@ pipeline {
             steps {
                 echo 'Deploying application...'
                 // Stop container lama, lalu jalankan yang baru
-                bat 'docker compose down'
-                bat 'docker compose up -d'
+                sh 'docker compose down'
+                sh 'docker compose up -d'
             }
         }
 
         stage('Cleanup') {
             steps {
                 echo 'Cleaning up dangling images...'
-                bat 'docker image prune -f'
+                sh 'docker image prune -f'
             }
         }
     }
